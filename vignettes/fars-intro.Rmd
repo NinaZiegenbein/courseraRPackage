@@ -1,0 +1,64 @@
+---
+title: "Introduction to the fars Package"
+author: "Your Name"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the fars Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(fars)
+```
+
+## Overview
+
+The fars package provides tools for reading, summarizing, and visualizing data from the Fatality Analysis Reporting System (FARS). This vignette introduces the main functions with simple examples.
+
+## Reading Data
+
+Use fars_read() to read a FARS CSV file.
+```{r}
+filename <- system.file("extdata", "accident_2013.csv.bz2", package = "fars")
+head(fars_read(filename))
+
+```
+## Summarizing Data by Year
+
+You can summarize accidents per month across one or more years:
+```{r}
+fars_summarize_years(c(2013, 2014))
+
+```
+
+## Plotting Accidents on a Map
+
+You can visualize accident locations for a specific state and year using fars_map_state():
+```{r}
+fars_map_state(1, 2013)  # Plots accidents in state 1 for 2013
+
+```
+
+## Error Handling
+
+The functions are designed to handle common errors gracefully, such as invalid filenames or state numbers. For example:
+```{r}
+fars_map_state(1000, 2013)  # Triggers error for invalid state
+
+```
+
+## Accessing Example Data
+
+Example data files can be accessed using:
+```{r}
+system.file("extdata", "accident_2013.csv.bz2", package = "fars")
+
+```
+
+This vignette gives a basic tour. See the documentation of individual functions for more.
+
